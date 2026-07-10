@@ -43,8 +43,9 @@
   .display{font-family:'Space Grotesk', sans-serif;}
   ::selection{background:var(--teal); color:var(--ink);}
 
-  /* ---------- Ambient background: particle network + spotlight ---------- */
-  #netbg{position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.55;}
+  /* ---------- Ambient background: galaxy scene (site-wide) ---------- */
+  #netbg{position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.32;}
+  #galaxyStars{position:fixed; inset:0; z-index:0; pointer-events:none;}
   #spotlight{
     position:fixed; inset:0; z-index:1; pointer-events:none;
     background:radial-gradient(560px circle at var(--mx,50%) var(--my,20%), rgba(62,123,250,0.10), transparent 60%);
@@ -53,9 +54,41 @@
   .glowfield{
     position:fixed; inset:0; z-index:0; pointer-events:none;
     background-image:
-      radial-gradient(ellipse 900px 500px at 12% -10%, rgba(62,123,250,0.16), transparent),
-      radial-gradient(ellipse 700px 500px at 105% 8%, rgba(47,209,196,0.12), transparent);
+      radial-gradient(ellipse 900px 500px at 12% -10%, rgba(62,123,250,0.10), transparent),
+      radial-gradient(ellipse 700px 500px at 105% 8%, rgba(47,209,196,0.07), transparent),
+      radial-gradient(ellipse 640px 480px at 100% 70%, rgba(148,90,220,0.05), transparent),
+      radial-gradient(ellipse 620px 460px at -6% 62%, rgba(201,162,75,0.045), transparent),
+      radial-gradient(ellipse 800px 560px at 40% 100%, rgba(62,123,250,0.05), transparent);
   }
+  .milky-band{
+    position:fixed; z-index:0; pointer-events:none; opacity:0.14;
+    top:-20%; left:-30%; width:180vw; height:80vh;
+    background:linear-gradient(115deg, transparent 30%, rgba(120,140,220,0.06) 45%, rgba(190,170,230,0.08) 50%, rgba(120,140,220,0.06) 55%, transparent 70%);
+    filter:blur(6px);
+    transform:rotate(-12deg);
+  }
+  .deco-planet{position:fixed; border-radius:50%; z-index:0; pointer-events:none; opacity:0.28;}
+  .dp-1{
+    width:70px; height:70px; top:10%; right:6%;
+    background:radial-gradient(circle at 32% 28%, #ffd9a0, #c9683a 45%, #5c2712 100%);
+    box-shadow:0 0 24px rgba(201,104,58,0.16);
+    animation:dpfloat 9s ease-in-out infinite;
+  }
+  .dp-2{
+    width:46px; height:46px; bottom:16%; left:5%;
+    background:radial-gradient(circle at 32% 28%, #d9c6ff, #7a5ad1 45%, #3a2570 100%);
+    box-shadow:0 0 18px rgba(122,90,209,0.15);
+    animation:dpfloat 12s ease-in-out infinite reverse;
+  }
+  .dp-3{
+    width:34px; height:34px; top:52%; right:12%;
+    background:radial-gradient(circle at 32% 28%, #b9f5e8, #2fb8a4 45%, #114d43 100%);
+    box-shadow:0 0 16px rgba(47,184,164,0.14);
+    animation:dpfloat 10s ease-in-out infinite;
+  }
+  @keyframes dpfloat{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-16px);} }
+  @media (max-width:640px){ .deco-planet{opacity:0.18;} .dp-1{width:44px; height:44px;} .dp-2{width:30px; height:30px;} .dp-3{display:none;} }
+
   main, header, nav, footer{position:relative; z-index:2;}
 
   /* ---------- Layout shells ---------- */
@@ -370,16 +403,21 @@
 
   /* ---------- Journey (3D timeline) ---------- */
   .journey-stage{perspective:1600px;}
-  .jline{position:relative; padding:10px 0;}
+  .jline{position:relative; padding:10px 0; counter-reset:jrn;}
   .jline::before{
-    content:""; position:absolute; left:50%; top:0; bottom:0; width:1px;
-    background:linear-gradient(to bottom, transparent, var(--line) 6%, var(--line) 94%, transparent);
+    content:""; position:absolute; left:50%; top:0; bottom:0; width:2px;
+    background:linear-gradient(180deg, transparent, var(--teal) 15%, var(--blue) 50%, var(--teal) 85%, transparent);
+    background-size:100% 240%;
+    animation:jflow 4.5s linear infinite;
     transform:translateX(-50%);
+    opacity:0.55;
   }
+  @keyframes jflow{ 0%{background-position:0 240%;} 100%{background-position:0 -240%;} }
   @media (max-width:760px){ .jline::before{left:14px;} }
 
   .jitem{
     position:relative; width:50%; padding:0 44px 64px; box-sizing:border-box;
+    counter-increment:jrn;
     opacity:0; transition:opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1);
     will-change:transform;
   }
@@ -392,21 +430,42 @@
   }
 
   .jnode{
-    position:absolute; top:4px; width:13px; height:13px; border-radius:50%;
+    position:absolute; top:6px; width:14px; height:14px;
     background:var(--ink); border:2px solid var(--blue); z-index:2;
-    left:calc(50% - 6.5px);
+    left:calc(50% - 7px);
+    transform:rotate(45deg);
     box-shadow:0 0 0 5px var(--ink);
   }
-  .jitem.milestone .jnode{ border-color:var(--teal); background:var(--teal); box-shadow:0 0 0 5px var(--ink), 0 0 0 8px rgba(47,209,196,0.18); }
-  @media (max-width:760px){ .jnode{ left:9px; } }
+  .jitem.milestone .jnode{ border-color:var(--teal); background:var(--teal); box-shadow:0 0 0 5px var(--ink), 0 0 16px rgba(47,209,196,0.55); }
+  @media (max-width:760px){ .jnode{ left:8px; } }
 
   .jcard{
-    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
-    padding:18px 20px; transform-style:preserve-3d;
+    position:relative; background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:20px 20px 18px; transform-style:preserve-3d; overflow:hidden;
     transition:border-color .2s, box-shadow .2s;
   }
+  .jcard::before{
+    content:"JRN·" counter(jrn, decimal-leading-zero);
+    position:absolute; top:12px; right:14px;
+    font-family:'IBM Plex Mono', monospace; font-size:9.5px; color:var(--muted-2);
+    letter-spacing:.08em; opacity:0.7;
+  }
+  .jcard::after{
+    content:""; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg, var(--teal), var(--blue));
+    opacity:0.75;
+  }
   .jitem:hover .jcard{ border-color:var(--teal); box-shadow:0 24px 50px -28px rgba(47,209,196,0.3); }
-  .jyear{font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--blue); letter-spacing:.08em; margin-bottom:6px;}
+  .jyear-row{display:flex; align-items:center; gap:8px; margin-bottom:8px;}
+  .jicon{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:22px; height:22px; border-radius:6px; flex:none;
+    background:rgba(62,123,250,0.12); color:var(--blue);
+  }
+  .jitem.milestone .jicon{ background:rgba(47,209,196,0.14); color:var(--teal); }
+  .jicon svg{width:13px; height:13px;}
+  .jyear{font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--blue); letter-spacing:.08em;}
+  .jitem.milestone .jyear{ color:var(--teal); }
   .jcard h3{font-family:'Archivo', sans-serif; font-size:16px; font-weight:700; margin-bottom:5px;}
   .jcard p{font-size:13.5px; color:var(--muted);}
   .commit-branch{font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--muted-2); border:1px solid var(--line); border-radius:12px; padding:2px 9px;}
@@ -448,7 +507,12 @@
 <body>
 
 <div class="glowfield"></div>
+<div class="milky-band"></div>
+<div class="deco-planet dp-1"></div>
+<div class="deco-planet dp-2"></div>
+<div class="deco-planet dp-3"></div>
 <canvas id="netbg"></canvas>
+<canvas id="galaxyStars"></canvas>
 <div id="spotlight"></div>
 
 <nav>
@@ -771,7 +835,10 @@
         <div class="jitem">
           <div class="jnode"></div>
           <div class="jcard">
-            <div class="jyear">MAR 2018</div>
+            <div class="jyear-row">
+              <span class="jicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M6 10.5V15c0 1.5 3 3 6 3s6-1.5 6-3v-4.5"/></svg></span>
+              <div class="jyear">MAR 2018</div>
+            </div>
             <h3>Secondary School Certificate</h3>
             <p>Completed 10th (SSC) with 80% — the starting point.</p>
           </div>
@@ -780,7 +847,10 @@
         <div class="jitem">
           <div class="jnode"></div>
           <div class="jcard">
-            <div class="jyear">FEB 2020</div>
+            <div class="jyear-row">
+              <span class="jicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M6 10.5V15c0 1.5 3 3 6 3s6-1.5 6-3v-4.5"/></svg></span>
+              <div class="jyear">FEB 2020</div>
+            </div>
             <h3>Higher Secondary Certificate</h3>
             <p>Completed 12th Science (PCMB), building toward tech and security.</p>
           </div>
@@ -789,7 +859,10 @@
         <div class="jitem">
           <div class="jnode"></div>
           <div class="jcard">
-            <div class="jyear">JUL 2021 — JAN 2022</div>
+            <div class="jyear-row">
+              <span class="jicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5.5c0 4.6-3.2 6.9-7 8.5-3.8-1.6-7-3.9-7-8.5V6l7-3Z"/></svg></span>
+              <div class="jyear">JUL 2021 — JAN 2022</div>
+            </div>
             <h3>First security certifications</h3>
             <p>Cyber Security Professional Course, Certified Red Team Professional (CRTP), then Certified Ethical Hacker (CEH).</p>
           </div>
@@ -798,7 +871,10 @@
         <div class="jitem">
           <div class="jnode"></div>
           <div class="jcard">
-            <div class="jyear">JAN — DEC 2023</div>
+            <div class="jyear-row">
+              <span class="jicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7.5" width="18" height="11.5" rx="2"/><path d="M8 7.5V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1.5"/></svg></span>
+              <div class="jyear">JAN — DEC 2023</div>
+            </div>
             <h3>Project Manager, Sahyadri Farms</h3>
             <p>First real leadership role — planning and delivery for an agri-producer company's digital initiatives.</p>
           </div>
@@ -807,7 +883,10 @@
         <div class="jitem milestone">
           <div class="jnode"></div>
           <div class="jcard">
-            <div class="jyear">APR 2024</div>
+            <div class="jyear-row">
+              <span class="jicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="15" rx="2"/><path d="M7.5 9.5 10.5 12l-3 2.5M13 14.5h4"/></svg></span>
+              <div class="jyear">APR 2024</div>
+            </div>
             <h3>Ethical Hacker, Forensic Dept.</h3>
             <p>Contract specialist tracing digital evidence for active cyber crime cases with Intelligent Beuro.</p>
           </div>
@@ -816,7 +895,10 @@
         <div class="jitem milestone">
           <div class="jnode"></div>
           <div class="jcard">
-            <div class="jyear">DEC 2024</div>
+            <div class="jyear-row">
+              <span class="jicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5c3 2 5 6.2 5 10.3 0 2.1-.9 4-2 5.1l-.7 3-2.3-2.1-2.3 2.1-.7-3c-1.1-1.1-2-3-2-5.1 0-4.1 2-8.3 5-10.3Z"/><circle cx="12" cy="10.5" r="1.6"/></svg></span>
+              <div class="jyear">DEC 2024</div>
+            </div>
             <h3>Founded Ayekar Infotech</h3>
             <p>Took the leap — full-stack development and security services, under my own name.</p>
           </div>
@@ -825,7 +907,10 @@
         <div class="jitem">
           <div class="jnode"></div>
           <div class="jcard">
-            <div class="jyear">JAN 2025</div>
+            <div class="jyear-row">
+              <span class="jicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 6 2.5 12l6 6M15.5 6l6 6-6 6"/></svg></span>
+              <div class="jyear">JAN 2025</div>
+            </div>
             <h3>Co-founded HotDate</h3>
             <p>A consumer web platform built end-to-end — shipped, learned, closed.</p>
           </div>
@@ -834,7 +919,10 @@
         <div class="jitem milestone">
           <div class="jnode"></div>
           <div class="jcard">
-            <div class="jyear">2025 — NOW</div>
+            <div class="jyear-row">
+              <span class="jicon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.6"/><path d="M4.5 12a7.5 7.5 0 0 1 15 0"/><path d="M2.5 12h2M19.5 12h2"/></svg></span>
+              <div class="jyear">2025 — NOW</div>
+            </div>
             <h3>Building GoVerifAI &amp; KaakaPOS</h3>
             <p>AI-powered document fraud detection and a global POS payments platform — both in active development today.</p>
           </div>
@@ -1070,6 +1158,50 @@
             ctx.stroke();
           }
         }
+      }
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  })();
+
+  // Site-wide galaxy starfield (fixed, visible across every section)
+  (function(){
+    var canvas = document.getElementById('galaxyStars');
+    if(!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var W, H, stars = [];
+    var COUNT = reduced ? 0 : 110;
+
+    function rand(a,b){ return a + Math.random()*(b-a); }
+
+    function resize(){
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    for(var i=0;i<COUNT;i++){
+      stars.push({
+        x: rand(0,1), y: rand(0,1),
+        r: rand(0.4,1.8),
+        phase: rand(0, Math.PI*2),
+        speed: rand(0.015,0.045)
+      });
+    }
+
+    var t = 0;
+    function step(){
+      if(COUNT === 0) return;
+      t += 1;
+      ctx.clearRect(0,0,W,H);
+      for(var i=0;i<stars.length;i++){
+        var s = stars[i];
+        var tw = 0.12 + 0.4 * (0.5 + 0.5*Math.sin(t*s.speed + s.phase));
+        ctx.beginPath();
+        ctx.arc(s.x*W, s.y*H, s.r, 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(255,255,255,' + tw.toFixed(2) + ')';
+        ctx.fill();
       }
       requestAnimationFrame(step);
     }
