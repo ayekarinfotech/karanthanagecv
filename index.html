@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=1280">
 <title>Karan D. Thanage — Founder · Web Developer · Cybersecurity Specialist</title>
 <meta name="description" content="Digital CV of Karan Daulat Thanage — Founder & CEO of Ayekar Infotech, builder of GoVerifAI and KaakaPOS, ethical hacker and full-stack developer based in Pune, India.">
 <link rel="icon" type="image/png" href="assets/icon.png">
@@ -145,7 +145,7 @@
   /* ---------- Hero ---------- */
   header.hero{padding:64px 0 30px;}
   @media (max-width:640px){ header.hero{padding:36px 0 20px;} }
-  .hero-grid{display:grid; grid-template-columns:1.25fr 0.9fr; gap:48px; align-items:center;}
+  .hero-grid{display:grid; grid-template-columns:1.25fr 0.9fr; gap:48px; align-items:start;}
   @media (max-width:860px){ .hero-grid{grid-template-columns:1fr; gap:56px;} }
 
   .term{
@@ -189,7 +189,8 @@
   .btn-ghost:hover{border-color:var(--teal); color:var(--teal); transform:translateY(-2px);}
 
   /* ---------- 3D portrait card ---------- */
-  .portrait-stage{perspective:1400px; display:flex; justify-content:center;}
+  .portrait-stage{perspective:1400px; display:flex; justify-content:center; padding-top:6px;}
+  @media (max-width:860px){ .portrait-stage{padding-top:0;} }
   .portrait-card{
     position:relative; width:min(360px, 82vw); aspect-ratio:1/1.12;
     border-radius:20px; transform-style:preserve-3d;
