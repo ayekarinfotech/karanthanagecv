@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karan D. Thanage — Founder · Web Developer · Cybersecurity Specialist</title>
+<meta name="description" content="Digital CV of Karan Daulat Thanage — Founder & CEO of Ayekar Infotech, builder of GoVerifAI and KaakaPOS, ethical hacker and full-stack developer based in Pune, India.">
+<link rel="icon" type="image/png" href="assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B0F17;
+    --panel:#0F1524;
+    --panel-2:#131B2E;
+    --line:#232B3D;
+    --teal:#2FD1C4;
+    --blue:#3E7BFA;
+    --amber:#C9A24B;
+    --text:#EDEFF5;
+    --muted:#8892A6;
+    --muted-2:#5B6478;
+    --radius:10px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+  body{
+    background:var(--ink);
+    color:var(--text);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    position:relative;
+  }
+  a{color:inherit;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  .display{font-family:'Space Grotesk', sans-serif;}
+  ::selection{background:var(--teal); color:var(--ink);}
+
+  /* ---------- Ambient background: particle network + spotlight ---------- */
+  #netbg{position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.55;}
+  #spotlight{
+    position:fixed; inset:0; z-index:1; pointer-events:none;
+    background:radial-gradient(560px circle at var(--mx,50%) var(--my,20%), rgba(62,123,250,0.10), transparent 60%);
+    transition:background .1s linear;
+  }
+  .glowfield{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      radial-gradient(ellipse 900px 500px at 12% -10%, rgba(62,123,250,0.16), transparent),
+      radial-gradient(ellipse 700px 500px at 105% 8%, rgba(47,209,196,0.12), transparent);
+  }
+  main, header, nav, footer{position:relative; z-index:2;}
+
+  /* ---------- Layout shells ---------- */
+  .wrap{max-width:1040px; margin:0 auto; padding:0 24px;}
+  section{padding:96px 0;}
+  @media (max-width:640px){ section{padding:64px 0;} .wrap{padding:0 20px;} }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--teal);
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:14px;
+  }
+  .eyebrow::before{content:"//"; color:var(--muted-2);}
+  h2.title{
+    font-family:'Archivo', sans-serif;
+    font-weight:800;
+    font-size:clamp(28px,3.6vw,40px);
+    letter-spacing:-0.02em;
+    margin-bottom:40px;
+  }
+
+  /* ---------- Nav ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter:blur(10px);
+    background:rgba(11,15,23,0.78);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:64px;}
+  .brand{display:flex; align-items:center; gap:11px; min-width:0;}
+  .brand .mark{
+    width:34px; height:34px; border-radius:9px; display:block; flex:none;
+    box-shadow:0 2px 10px -2px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.06);
+  }
+  .brand .wordmark{display:flex; flex-direction:column; line-height:1.15;}
+  .brand .wordmark b{
+    font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:14px;
+    letter-spacing:0.02em; color:var(--text);
+  }
+  .brand .wordmark i{
+    font-style:normal; font-family:'IBM Plex Mono', monospace; font-size:9.5px;
+    letter-spacing:0.16em; text-transform:uppercase; color:var(--muted-2);
+  }
+  @media (max-width:400px){ .brand .wordmark{display:none;} }
+  .navlinks{display:flex; gap:26px; font-family:'IBM Plex Mono', monospace; font-size:13px;}
+  .navlinks a{color:var(--muted); text-decoration:none; transition:color .2s;}
+  .navlinks a:hover, .navlinks a:focus-visible{color:var(--teal);}
+  .navlinks a:focus-visible{outline:1px solid var(--teal); outline-offset:4px;}
+  @media (max-width:680px){ .navlinks{display:none;} }
+
+  /* ---------- Hero ---------- */
+  header.hero{padding:64px 0 30px;}
+  @media (max-width:640px){ header.hero{padding:36px 0 20px;} }
+  .hero-grid{display:grid; grid-template-columns:1.25fr 0.9fr; gap:48px; align-items:center;}
+  @media (max-width:860px){ .hero-grid{grid-template-columns:1fr; gap:56px;} }
+
+  .term{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+    box-shadow:0 40px 90px -40px rgba(0,0,0,0.7);
+  }
+  .term-bar{
+    display:flex; align-items:center; gap:8px;
+    padding:11px 16px;
+    border-bottom:1px solid var(--line);
+    background:var(--panel-2);
+  }
+  .dot{width:10px; height:10px; border-radius:50%;}
+  .dot.r{background:#F1595C;} .dot.y{background:#E8B84B;} .dot.g{background:#3BC77C;}
+  .term-title{margin-left:8px; font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--muted-2);}
+  .term-body{padding:26px 24px 30px; font-family:'IBM Plex Mono', monospace; font-size:14.5px; min-height:190px;}
+  .term-line{color:var(--muted); margin-bottom:6px;}
+  .term-line .prompt{color:var(--teal);}
+  .term-out{color:var(--text); margin:0 0 14px 0; white-space:pre-wrap;}
+  #typed-name{font-size:clamp(28px,4vw,42px); font-weight:800; font-family:'Archivo', sans-serif; letter-spacing:-0.02em; display:block; margin:8px 0 8px; background:linear-gradient(100deg, var(--text) 40%, var(--teal) 100%); -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent;}
+  .cursor{display:inline-block; width:9px; height:1em; background:var(--teal); vertical-align:text-bottom; animation:blink 1s steps(1) infinite;}
+  @keyframes blink{50%{opacity:0;}}
+  .hero-tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:16px;}
+  .tag{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--muted);
+    border:1px solid var(--line); border-radius:20px; padding:5px 12px;
+  }
+  .hero-cta{display:flex; flex-wrap:wrap; gap:12px; margin-top:26px; padding:0 24px 26px;}
+  .btn{
+    font-family:'IBM Plex Mono', monospace; font-size:13px; font-weight:500;
+    padding:11px 20px; border-radius:8px; text-decoration:none; letter-spacing:0.02em;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn-primary{background:linear-gradient(135deg, var(--teal), var(--blue)); color:#08131A; font-weight:600;}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 12px 30px -10px rgba(47,209,196,0.5);}
+  .btn-ghost{border:1px solid var(--line); color:var(--text);}
+  .btn-ghost:hover{border-color:var(--teal); color:var(--teal); transform:translateY(-2px);}
+
+  /* ---------- 3D portrait card ---------- */
+  .portrait-stage{perspective:1400px; display:flex; justify-content:center;}
+  .portrait-card{
+    position:relative; width:min(360px, 82vw); aspect-ratio:1/1.12;
+    border-radius:20px; transform-style:preserve-3d;
+    transition:transform .12s ease-out;
+    will-change:transform;
+  }
+  .portrait-card .ring{
+    position:absolute; inset:-2px; border-radius:22px; z-index:0;
+    background:conic-gradient(from 0deg, var(--teal), var(--blue), var(--amber), var(--teal));
+    filter:blur(1px);
+    animation:spin 8s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .portrait-card .inner{
+    position:absolute; inset:3px; border-radius:18px; overflow:hidden; z-index:1;
+    background:var(--panel);
+    transform:translateZ(20px);
+  }
+  .portrait-card img{
+    width:100%; height:100%; object-fit:cover; display:block;
+    filter:saturate(1.05) contrast(1.03);
+  }
+  .portrait-card .scan{
+    position:absolute; inset:0; z-index:2; pointer-events:none;
+    background:linear-gradient(to bottom, transparent 0%, rgba(47,209,196,0.10) 50%, transparent 100%);
+    background-size:100% 220%;
+    animation:scan 3.4s ease-in-out infinite;
+    mix-blend-mode:screen;
+  }
+  @keyframes scan{0%{background-position:0 -60%;}100%{background-position:0 160%;}}
+  .float-badge{
+    position:absolute; z-index:3;
+    background:rgba(15,21,36,0.9); backdrop-filter:blur(6px);
+    border:1px solid var(--line); border-radius:10px;
+    padding:8px 12px; font-family:'IBM Plex Mono', monospace; font-size:11.5px;
+    display:flex; align-items:center; gap:7px; white-space:nowrap;
+    transform:translateZ(60px);
+    animation:floaty 4.5s ease-in-out infinite;
+    box-shadow:0 14px 30px -10px rgba(0,0,0,0.5);
+  }
+  .dotpulse{width:7px; height:7px; border-radius:50%; background:var(--teal); box-shadow:0 0 0 0 rgba(47,209,196,0.6); animation:pulse 2s infinite; display:inline-block;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(47,209,196,0.5);} 70%{box-shadow:0 0 0 8px rgba(47,209,196,0);} 100%{box-shadow:0 0 0 0 rgba(47,209,196,0);}}
+  @keyframes floaty{0%,100%{transform:translateZ(60px) translateY(0);} 50%{transform:translateZ(60px) translateY(-8px);}}
+  .badge-1{top:-6%; left:-14%; animation-delay:.2s;}
+  .badge-2{bottom:10%; right:-16%; animation-delay:1.1s;}
+  .badge-3{bottom:-6%; left:2%; animation-delay:.6s;}
+  @media (max-width:500px){ .float-badge{display:none;} }
+
+  /* ---------- Reveal on scroll ---------- */
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- Impact counters ---------- */
+  .impact{padding:52px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  @media (max-width:640px){ .impact{padding:36px 0;} }
+  .impact-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
+  @media (max-width:700px){ .impact-grid{grid-template-columns:repeat(2,1fr);} }
+  .impact-item{text-align:center; padding:10px;}
+  .impact-num{
+    font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:clamp(28px,4vw,40px);
+    background:linear-gradient(135deg, var(--teal), var(--blue));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .impact-label{font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--muted-2); text-transform:uppercase; letter-spacing:.07em; margin-top:6px;}
+
+  /* ---------- About ---------- */
+  .about-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:36px; align-items:start;}
+  @media (max-width:760px){ .about-grid{grid-template-columns:1fr;} }
+  .about-grid p{color:var(--muted); font-size:15.5px; margin-bottom:14px;}
+  .about-grid p strong{color:var(--text); font-weight:600;}
+  .stat-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:18px 20px; margin-bottom:12px;
+  }
+  .stat-card .k{font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--muted-2); text-transform:uppercase; letter-spacing:.08em;}
+  .stat-card .v{font-family:'Space Grotesk', sans-serif; font-size:20px; font-weight:600; margin-top:4px;}
+
+  /* ---------- Ventures (3D tilt) ---------- */
+  .venture-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  @media (max-width:860px){ .venture-grid{grid-template-columns:1fr;} }
+  .tilt{perspective:900px;}
+  .vcard{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:22px; transition:border-color .2s, transform .08s ease-out, box-shadow .2s;
+    transform-style:preserve-3d; will-change:transform;
+  }
+  .vcard:hover{border-color:var(--teal); box-shadow:0 30px 60px -30px rgba(47,209,196,0.35);}
+  .vcard .status{
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase;
+    padding:3px 9px; border-radius:20px; display:inline-block; margin-bottom:14px;
+    transform:translateZ(24px);
+  }
+  .status.live{background:rgba(59,199,124,0.14); color:#3BC77C;}
+  .status.build{background:rgba(232,184,75,0.14); color:var(--amber);}
+  .vcard h3{font-family:'Archivo', sans-serif; font-weight:700; font-size:18px; margin-bottom:8px; transform:translateZ(18px);}
+  .vcard p{color:var(--muted); font-size:14px; margin-bottom:14px; transform:translateZ(10px);}
+  .vcard .stack{display:flex; flex-wrap:wrap; gap:6px; transform:translateZ(14px);}
+  .chip{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--muted); border:1px solid var(--line); padding:3px 8px; border-radius:5px;}
+
+  /* ---------- Arsenal / skills ---------- */
+  .arsenal{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  @media (max-width:760px){ .arsenal{grid-template-columns:1fr;} }
+  .arsenal-col .h{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--blue); text-transform:uppercase; letter-spacing:.08em; margin-bottom:14px; padding-bottom:10px; border-bottom:1px solid var(--line);}
+  .arsenal-col ul{list-style:none;}
+  .arsenal-col li{
+    font-size:14.5px; color:var(--text); padding:9px 0; display:flex; align-items:center; gap:10px;
+  }
+  .arsenal-col li::before{content:"›"; color:var(--teal); font-family:'IBM Plex Mono', monospace;}
+  .meter{flex:1; height:5px; border-radius:4px; background:var(--line); overflow:hidden; margin-left:auto; max-width:90px;}
+  .meter span{display:block; height:100%; background:linear-gradient(90deg, var(--teal), var(--blue)); width:0%; transition:width 1.1s cubic-bezier(.2,.8,.2,1);}
+  .arsenal-col.in .meter span{width:var(--w);}
+
+  /* ---------- Commit log (experience) ---------- */
+  .log{position:relative; padding-left:26px;}
+  .log::before{content:""; position:absolute; left:6px; top:6px; bottom:6px; width:1px; background:var(--line);}
+  .commit{position:relative; padding-bottom:34px;}
+  .commit:last-child{padding-bottom:0;}
+  .commit::before{
+    content:""; position:absolute; left:-26px; top:5px; width:11px; height:11px; border-radius:50%;
+    background:var(--ink); border:2px solid var(--teal);
+  }
+  .commit.current::before{background:var(--teal); box-shadow:0 0 0 4px rgba(47,209,196,0.18);}
+  .commit-head{display:flex; flex-wrap:wrap; align-items:baseline; gap:10px; margin-bottom:4px;}
+  .commit-hash{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--amber);}
+
+  /* ---------- Systems (orbit module) ---------- */
+  .systems-grid{display:grid; grid-template-columns:260px 1fr; gap:52px; align-items:center;}
+  @media (max-width:760px){ .systems-grid{grid-template-columns:1fr; gap:44px; justify-items:center; text-align:center;} }
+
+  .orbit-stage{position:relative; width:230px; height:230px; margin:0 auto;}
+  .orbit-core{
+    position:absolute; top:50%; left:50%; width:66px; height:66px; margin:-33px;
+    border-radius:50%; background:var(--panel); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; z-index:2;
+    box-shadow:0 0 46px rgba(47,209,196,0.28), inset 0 0 0 1px rgba(255,255,255,0.05);
+  }
+  .orbit-core img{width:32px; height:32px; border-radius:8px;}
+  .orbit-ring{
+    position:absolute; top:50%; left:50%; border-radius:50%;
+    border:1px solid var(--line); transform-style:preserve-3d; pointer-events:none;
+  }
+  .ring-1{width:132px; height:132px; margin:-66px; border-color:rgba(62,123,250,0.4); animation:orbit1 10s linear infinite;}
+  .ring-2{width:178px; height:178px; margin:-89px; border-color:rgba(47,209,196,0.32); animation:orbit2 15s linear infinite;}
+  .ring-3{width:226px; height:226px; margin:-113px; border-color:rgba(201,162,75,0.3); animation:orbit3 22s linear infinite;}
+  @keyframes orbit1{ from{transform:rotateX(72deg) rotateZ(0deg);} to{transform:rotateX(72deg) rotateZ(360deg);} }
+  @keyframes orbit2{ from{transform:rotateX(72deg) rotateZ(360deg);} to{transform:rotateX(72deg) rotateZ(0deg);} }
+  @keyframes orbit3{ from{transform:rotateX(72deg) rotateZ(0deg);} to{transform:rotateX(72deg) rotateZ(360deg);} }
+  .orbit-dot{position:absolute; top:-4px; left:50%; width:8px; height:8px; margin-left:-4px; border-radius:50%; background:var(--teal); box-shadow:0 0 12px var(--teal), 0 0 0 3px rgba(47,209,196,0.15);}
+  .ring-2 .orbit-dot{background:var(--blue); box-shadow:0 0 12px var(--blue), 0 0 0 3px rgba(62,123,250,0.15);}
+
+  .sys-stats{display:flex; flex-direction:column; gap:12px; width:100%; max-width:440px;}
+  .sys-item{
+    display:flex; align-items:flex-start; gap:12px; padding:14px 17px;
+    background:var(--panel); border:1px solid var(--line); border-radius:10px;
+    transition:border-color .2s, transform .2s;
+  }
+  .sys-item:hover{border-color:var(--teal); transform:translateX(4px);}
+  @media (max-width:760px){ .sys-item{text-align:left;} .sys-item:hover{transform:none;} }
+  .sys-item .dotpulse{margin-top:6px; flex:none;}
+  .sys-k{font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--muted-2); text-transform:uppercase; letter-spacing:.08em;}
+  .sys-v{font-family:'Archivo', sans-serif; font-size:14.5px; color:var(--text); margin-top:3px; font-weight:700;}
+
+  /* ---------- Journey (3D timeline) ---------- */
+  .journey-stage{perspective:1600px;}
+  .jline{position:relative; padding:10px 0;}
+  .jline::before{
+    content:""; position:absolute; left:50%; top:0; bottom:0; width:1px;
+    background:linear-gradient(to bottom, transparent, var(--line) 6%, var(--line) 94%, transparent);
+    transform:translateX(-50%);
+  }
+  @media (max-width:760px){ .jline::before{left:14px;} }
+
+  .jitem{
+    position:relative; width:50%; padding:0 44px 64px; box-sizing:border-box;
+    opacity:0; transition:opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1);
+    will-change:transform;
+  }
+  .jitem:nth-child(odd){ left:0; transform:translateZ(-120px) rotateY(22deg) translateX(-30px); }
+  .jitem:nth-child(even){ left:50%; transform:translateZ(-120px) rotateY(-22deg) translateX(30px); }
+  .jitem.in{ opacity:1; transform:translateZ(0) rotateY(0) translateX(0); }
+  @media (max-width:760px){
+    .jitem, .jitem:nth-child(odd), .jitem:nth-child(even){ width:100%; left:0; padding:0 0 44px 44px; transform:translateZ(-80px) translateX(24px); }
+    .jitem.in{ transform:translateZ(0) translateX(0); }
+  }
+
+  .jnode{
+    position:absolute; top:4px; width:13px; height:13px; border-radius:50%;
+    background:var(--ink); border:2px solid var(--blue); z-index:2;
+    left:calc(50% - 6.5px);
+    box-shadow:0 0 0 5px var(--ink);
+  }
+  .jitem.milestone .jnode{ border-color:var(--teal); background:var(--teal); box-shadow:0 0 0 5px var(--ink), 0 0 0 8px rgba(47,209,196,0.18); }
+  @media (max-width:760px){ .jnode{ left:9px; } }
+
+  .jcard{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:18px 20px; transform-style:preserve-3d;
+    transition:border-color .2s, box-shadow .2s;
+  }
+  .jitem:hover .jcard{ border-color:var(--teal); box-shadow:0 24px 50px -28px rgba(47,209,196,0.3); }
+  .jyear{font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--blue); letter-spacing:.08em; margin-bottom:6px;}
+  .jcard h3{font-family:'Archivo', sans-serif; font-size:16px; font-weight:700; margin-bottom:5px;}
+  .jcard p{font-size:13.5px; color:var(--muted);}
+  .commit-branch{font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--muted-2); border:1px solid var(--line); border-radius:12px; padding:2px 9px;}
+  .commit h3{font-family:'Archivo', sans-serif; font-size:18px; font-weight:700;}
+  .commit .role-meta{font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--muted-2); margin-bottom:10px;}
+  .commit ul{list-style:none; color:var(--muted); font-size:14.5px;}
+  .commit li{padding-left:16px; position:relative; margin-bottom:5px;}
+  .commit li::before{content:"–"; position:absolute; left:0; color:var(--muted-2);}
+
+  /* ---------- Education ---------- */
+  .edu-grid{display:grid; grid-template-columns:1fr 1fr; gap:34px;}
+  @media (max-width:760px){ .edu-grid{grid-template-columns:1fr;} }
+  .edu-grid h3{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--blue); text-transform:uppercase; letter-spacing:.08em; margin-bottom:16px;}
+  .row{display:flex; justify-content:space-between; gap:10px; padding:11px 0; border-bottom:1px solid var(--line); font-size:14.5px;}
+  .row:last-child{border-bottom:none;}
+  .row .name{color:var(--text);}
+  .row .meta{color:var(--muted-2); font-family:'IBM Plex Mono', monospace; font-size:12.5px; text-align:right; white-space:nowrap;}
+  .langs{margin-top:26px; display:flex; gap:22px; flex-wrap:wrap;}
+  .langs .lg .name{font-size:14.5px;} .langs .lg .meta{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--muted-2);}
+
+  /* ---------- Connect ---------- */
+  .connect-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
+  @media (max-width:760px){ .connect-grid{grid-template-columns:repeat(2,1fr);} }
+  .cbox{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:18px; text-decoration:none; display:block; transition:border-color .2s, transform .2s;
+  }
+  .cbox:hover{border-color:var(--teal); transform:translateY(-3px);}
+  .cbox .k{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--muted-2); text-transform:uppercase; letter-spacing:.07em; margin-bottom:6px;}
+  .cbox .v{font-size:14px; color:var(--text); word-break:break-word;}
+
+  footer{border-top:1px solid var(--line); padding:56px 0 40px; text-align:center;}
+  footer .foot-logo{height:52px; width:auto; opacity:0.95; margin-bottom:26px; filter:drop-shadow(0 8px 24px rgba(47,209,196,0.15));}
+  footer p{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--muted-2); max-width:520px; margin:0 auto;}
+  footer .flag{color:var(--teal);}
+  footer .copyline{margin-top:10px; font-size:11px; color:var(--muted-2); opacity:0.75;}
+</style>
+</head>
+<body>
+
+<div class="glowfield"></div>
+<canvas id="netbg"></canvas>
+<div id="spotlight"></div>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">
+      <img class="mark" src="assets/icon.png" width="34" height="34" alt="Ayekar Infotech mark">
+      <span class="wordmark"><b>AYEKAR</b><i>Infotech</i></span>
+    </div>
+    <div class="navlinks">
+      <a href="#about">whoami</a>
+      <a href="#ventures">ventures</a>
+      <a href="#arsenal">arsenal</a>
+      <a href="#systems">systems</a>
+      <a href="#log">log</a>
+      <a href="#education">education</a>
+      <a href="#journey">journey</a>
+      <a href="#connect">connect</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero wrap">
+  <div class="hero-grid">
+    <div class="term">
+      <div class="term-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="term-title">identity.log — bash — 80×24</span>
+      </div>
+      <div class="term-body">
+        <div class="term-line"><span class="prompt">karan@ayekar</span>:~$ cat identity.log</div>
+        <p class="term-out" id="typed-name"></p>
+        <div class="term-out mono" style="color:var(--muted); font-size:14.5px;">Founder &amp; CEO, Ayekar Infotech · Building GoVerifAI &amp; KaakaPOS · Ethical Hacker (CEH · CRTP)</div>
+        <div class="hero-tags">
+          <span class="tag">📍 Pune, Maharashtra, India</span>
+          <span class="tag">💻 Full-Stack + AI-Assisted Dev</span>
+          <span class="tag">🔐 Offensive Security</span>
+          <span class="tag">🚀 Solo Founder</span>
+        </div>
+      </div>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="mailto:ayekarinfotech@aol.com">✉ Get in touch</a>
+        <a class="btn btn-ghost" href="https://github.com/drhackbank" target="_blank" rel="noopener">↗ GitHub / drhackbank</a>
+        <a class="btn btn-ghost" href="https://github.com/ayekarinfotech" target="_blank" rel="noopener">↗ GitHub / ayekarinfotech</a>
+        <a class="btn btn-ghost" href="Karan_Thanage_CV.pdf" target="_blank" rel="noopener">⬇ Résumé (PDF)</a>
+      </div>
+    </div>
+
+    <div class="portrait-stage">
+      <div class="portrait-card" id="portraitCard">
+        <div class="ring"></div>
+        <div class="inner">
+          <img src="assets/portrait.jpg" width="900" height="900" alt="Portrait of Karan Daulat Thanage">
+          <div class="scan"></div>
+        </div>
+        <div class="float-badge badge-1"><span class="dotpulse"></span> CEH · CRTP</div>
+        <div class="float-badge badge-2"><span class="dotpulse"></span> Founder &amp; CEO</div>
+        <div class="float-badge badge-3"><span class="dotpulse"></span> Pune, IN</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="impact wrap reveal">
+  <div class="impact-grid">
+    <div class="impact-item"><div class="impact-num" data-count="2">0</div><div class="impact-label">Active Ventures</div></div>
+    <div class="impact-item"><div class="impact-num" data-count="6">0</div><div class="impact-label">Certifications</div></div>
+    <div class="impact-item"><div class="impact-num" data-count="4">0</div><div class="impact-label">Roles Held</div></div>
+    <div class="impact-item"><div class="impact-num" data-count="3">0</div><div class="impact-label">Languages Spoken</div></div>
+  </div>
+</div>
+
+<main>
+<section id="about">
+  <div class="wrap reveal">
+    <div class="eyebrow">whoami</div>
+    <h2 class="title">The short version</h2>
+    <div class="about-grid">
+      <div>
+        <p><strong>Web developer and cybersecurity specialist</strong> with hands-on experience building applications and running ethical security assessments. I founded <strong>Ayekar Infotech</strong> to deliver full-stack development and security work for clients across industries, and I split my time between shipping product and breaking things on purpose — legally.</p>
+        <p>Outside client work, I'm building two ventures of my own: <strong>GoVerifAI</strong>, an AI-powered document fraud detection platform for Indian government, banking, and public-sector use cases, and <strong>KaakaPOS</strong>, a POS and machine-integration platform for international card acceptance with crypto settlement.</p>
+        <p>I've also worked under contract with a forensic cyber-crime unit, tracing and gathering digital evidence against cybercriminals — work that keeps my offensive-security skills grounded in something more consequential than a lab environment.</p>
+      </div>
+      <div>
+        <div class="stat-card"><div class="k">Base</div><div class="v">Pune, India</div></div>
+        <div class="stat-card"><div class="k">Focus</div><div class="v">Web Dev · AppSec · AI Products</div></div>
+        <div class="stat-card"><div class="k">Certifications</div><div class="v">CEH · CRTP</div></div>
+        <div class="stat-card"><div class="k">Languages</div><div class="v">English · Hindi · Marathi</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ventures">
+  <div class="wrap reveal">
+    <div class="eyebrow">ventures</div>
+    <h2 class="title">What I'm building</h2>
+    <div class="venture-grid">
+      <div class="tilt"><div class="vcard">
+        <span class="status live">Operating</span>
+        <h3>Ayekar Infotech</h3>
+        <p>Freelance-born IT services studio — web development, security audits, and technical consulting delivered end-to-end for clients across industries.</p>
+        <div class="stack"><span class="chip">Web Dev</span><span class="chip">Pentesting</span><span class="chip">Consulting</span></div>
+      </div></div>
+      <div class="tilt"><div class="vcard">
+        <span class="status build">In development</span>
+        <h3>GoVerifAI</h3>
+        <p>AI-powered document fraud detection built for Indian documents, targeting government, banking, and public-sector verification workflows.</p>
+        <div class="stack"><span class="chip">AI/ML</span><span class="chip">Document Forensics</span><span class="chip">GovTech</span></div>
+      </div></div>
+      <div class="tilt"><div class="vcard">
+        <span class="status build">In development</span>
+        <h3>KaakaPOS</h3>
+        <p>A POS and machine-integration platform for international card acceptance (Visa, Mastercard, Amex, JCB, Discover, UnionPay) with crypto settlement.</p>
+        <div class="stack"><span class="chip">Payments</span><span class="chip">Node.js</span><span class="chip">Crypto Settlement</span></div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<section id="arsenal">
+  <div class="wrap reveal">
+    <div class="eyebrow">arsenal</div>
+    <h2 class="title">Core competencies</h2>
+    <div class="arsenal">
+      <div class="arsenal-col">
+        <div class="h">Web Development</div>
+        <ul>
+          <li>HTML5 &amp; CSS3 <span class="meter" style="--w:92%"><span></span></span></li>
+          <li>PHP (Backend) <span class="meter" style="--w:80%"><span></span></span></li>
+          <li>Python (Scripting) <span class="meter" style="--w:78%"><span></span></span></li>
+          <li>AI-Assisted Development <span class="meter" style="--w:88%"><span></span></span></li>
+        </ul>
+      </div>
+      <div class="arsenal-col">
+        <div class="h">Cybersecurity</div>
+        <ul>
+          <li>Certified Ethical Hacking <span class="meter" style="--w:90%"><span></span></span></li>
+          <li>Metasploit Framework <span class="meter" style="--w:85%"><span></span></span></li>
+          <li>Red Team Ops (CRTP) <span class="meter" style="--w:87%"><span></span></span></li>
+          <li>Bug Bounty Hunting <span class="meter" style="--w:75%"><span></span></span></li>
+          <li>Malware Analysis <span class="meter" style="--w:80%"><span></span></span></li>
+          <li>Penetration Testing <span class="meter" style="--w:88%"><span></span></span></li>
+        </ul>
+      </div>
+      <div class="arsenal-col">
+        <div class="h">Tools &amp; Other</div>
+        <ul>
+          <li>MS-CIT Certified <span class="meter" style="--w:81%"><span></span></span></li>
+          <li>Cyber Forensics <span class="meter" style="--w:78%"><span></span></span></li>
+          <li>Project Management <span class="meter" style="--w:83%"><span></span></span></li>
+          <li>Client Management <span class="meter" style="--w:85%"><span></span></span></li>
+          <li>Crime Investigation <span class="meter" style="--w:76%"><span></span></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="systems">
+  <div class="wrap reveal">
+    <div class="eyebrow">systems</div>
+    <h2 class="title">Currently online</h2>
+    <div class="systems-grid">
+      <div class="orbit-stage">
+        <div class="orbit-ring ring-3"><span class="orbit-dot"></span></div>
+        <div class="orbit-ring ring-2"><span class="orbit-dot"></span></div>
+        <div class="orbit-ring ring-1"><span class="orbit-dot"></span></div>
+        <div class="orbit-core"><img src="assets/icon.png" width="32" height="32" alt=""></div>
+      </div>
+      <div class="sys-stats">
+        <div class="sys-item">
+          <span class="dotpulse"></span>
+          <div><div class="sys-k">Status</div><div class="sys-v">Operational — open to new engagements</div></div>
+        </div>
+        <div class="sys-item">
+          <span class="dotpulse"></span>
+          <div><div class="sys-k">Response window</div><div class="sys-v">Under 24 hours, client &amp; collaborator inquiries</div></div>
+        </div>
+        <div class="sys-item">
+          <span class="dotpulse"></span>
+          <div><div class="sys-k">Security posture</div><div class="sys-v">Offensive-first — self-audited, CEH/CRTP practices applied</div></div>
+        </div>
+        <div class="sys-item">
+          <span class="dotpulse"></span>
+          <div><div class="sys-k">In orbit right now</div><div class="sys-v">GoVerifAI · KaakaPOS · Ayekar client work</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="log">
+  <div class="wrap reveal">
+    <div class="eyebrow">git log --author=karan</div>
+    <h2 class="title">Experience</h2>
+    <div class="log">
+
+      <div class="commit current">
+        <div class="commit-head">
+          <h3>Founder &amp; CEO</h3>
+          <span class="commit-branch">Ayekar Infotech</span>
+        </div>
+        <div class="role-meta">Dec 2024 — Present · Freelancing Startup</div>
+        <ul>
+          <li>Founded and lead a freelancing technology startup specializing in web development, cybersecurity services, and AI-integrated digital solutions.</li>
+          <li>Deliver end-to-end web application development, security audits, and technical consulting across industries.</li>
+          <li>Manage client relationships, project scoping, delivery timelines, and QA across concurrent engagements.</li>
+        </ul>
+      </div>
+
+      <div class="commit">
+        <div class="commit-head">
+          <h3>Ethical Hacker — Contract Specialist</h3>
+          <span class="commit-branch">Intelligent Beuro, Forensic Dept.</span>
+        </div>
+        <div class="role-meta">Apr 2024 — Feb 2025</div>
+        <ul>
+          <li>Engaged under formal contract to support law enforcement with cyber crime case investigations.</li>
+          <li>Conducted ethical hacking operations to identify, trace, and gather digital evidence against cybercriminals.</li>
+          <li>Applied penetration testing and digital forensics methodologies to assist active cyber crime cases.</li>
+          <li>Maintained strict confidentiality and legal compliance throughout all investigative engagements.</li>
+        </ul>
+      </div>
+
+      <div class="commit">
+        <div class="commit-head">
+          <h3>Co-Founder</h3>
+          <span class="commit-branch">HotDate — dating platform</span>
+        </div>
+        <div class="role-meta">Jan 2025 · Closed</div>
+        <ul>
+          <li>Co-founded and developed a full-stack dating web application; owned the development lifecycle from concept to launch.</li>
+          <li>Gained experience in product management, UI/UX, and scaling consumer web platforms.</li>
+        </ul>
+      </div>
+
+      <div class="commit">
+        <div class="commit-head">
+          <h3>Project Manager</h3>
+          <span class="commit-branch">Sahyadri Farms Producer Co. Ltd.</span>
+        </div>
+        <div class="role-meta">Jan 2023 — Dec 2023</div>
+        <ul>
+          <li>Led project planning, execution, and delivery for an agricultural producer company's digital and operational initiatives.</li>
+          <li>Coordinated cross-functional teams to meet milestones, budgets, and stakeholder expectations.</li>
+          <li>Implemented process improvements that raised operational efficiency and delivery speed.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap reveal">
+    <div class="eyebrow">education &amp; certifications</div>
+    <h2 class="title">Record</h2>
+    <div class="edu-grid">
+      <div>
+        <h3>Academic</h3>
+        <div class="row"><span class="name">Secondary School Certificate (10th)</span><span class="meta">Mar 2018 · 80%</span></div>
+        <div class="row"><span class="name">Higher Secondary Certificate (12th, PCMB)</span><span class="meta">Feb 2020 · 57.23%</span></div>
+        <div class="langs">
+          <div class="lg"><div class="name">English</div><div class="meta">Professional</div></div>
+          <div class="lg"><div class="name">Hindi</div><div class="meta">Native</div></div>
+          <div class="lg"><div class="name">Marathi</div><div class="meta">Native</div></div>
+        </div>
+      </div>
+      <div>
+        <h3>Professional Certifications</h3>
+        <div class="row"><span class="name">MS-CIT (Microsoft Certification in IT)</span><span class="meta">Jun 2018 · 81%</span></div>
+        <div class="row"><span class="name">Cyber Security Professional Course (2 ECTS)</span><span class="meta">Jul 2021</span></div>
+        <div class="row"><span class="name">Certified Red Team Professional (CRTP)</span><span class="meta">Jan 2021</span></div>
+        <div class="row"><span class="name">Certified Ethical Hacker (CEH)</span><span class="meta">Jan 2022</span></div>
+        <div class="row"><span class="name">Bug Bounty Hunter &amp; Program</span><span class="meta">Ongoing</span></div>
+        <div class="row"><span class="name">Website &amp; App Developer with AI Adoption</span><span class="meta">Certified</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="journey">
+  <div class="wrap reveal">
+    <div class="eyebrow">journey</div>
+    <h2 class="title">Beginning to now</h2>
+    <div class="journey-stage">
+      <div class="jline">
+
+        <div class="jitem">
+          <div class="jnode"></div>
+          <div class="jcard">
+            <div class="jyear">MAR 2018</div>
+            <h3>Secondary School Certificate</h3>
+            <p>Completed 10th (SSC) with 80% — the starting point.</p>
+          </div>
+        </div>
+
+        <div class="jitem">
+          <div class="jnode"></div>
+          <div class="jcard">
+            <div class="jyear">FEB 2020</div>
+            <h3>Higher Secondary Certificate</h3>
+            <p>Completed 12th Science (PCMB), building toward tech and security.</p>
+          </div>
+        </div>
+
+        <div class="jitem">
+          <div class="jnode"></div>
+          <div class="jcard">
+            <div class="jyear">JUL 2021 — JAN 2022</div>
+            <h3>First security certifications</h3>
+            <p>Cyber Security Professional Course, Certified Red Team Professional (CRTP), then Certified Ethical Hacker (CEH).</p>
+          </div>
+        </div>
+
+        <div class="jitem">
+          <div class="jnode"></div>
+          <div class="jcard">
+            <div class="jyear">JAN — DEC 2023</div>
+            <h3>Project Manager, Sahyadri Farms</h3>
+            <p>First real leadership role — planning and delivery for an agri-producer company's digital initiatives.</p>
+          </div>
+        </div>
+
+        <div class="jitem milestone">
+          <div class="jnode"></div>
+          <div class="jcard">
+            <div class="jyear">APR 2024</div>
+            <h3>Ethical Hacker, Forensic Dept.</h3>
+            <p>Contract specialist tracing digital evidence for active cyber crime cases with Intelligent Beuro.</p>
+          </div>
+        </div>
+
+        <div class="jitem milestone">
+          <div class="jnode"></div>
+          <div class="jcard">
+            <div class="jyear">DEC 2024</div>
+            <h3>Founded Ayekar Infotech</h3>
+            <p>Took the leap — full-stack development and security services, under my own name.</p>
+          </div>
+        </div>
+
+        <div class="jitem">
+          <div class="jnode"></div>
+          <div class="jcard">
+            <div class="jyear">JAN 2025</div>
+            <h3>Co-founded HotDate</h3>
+            <p>A consumer web platform built end-to-end — shipped, learned, closed.</p>
+          </div>
+        </div>
+
+        <div class="jitem milestone">
+          <div class="jnode"></div>
+          <div class="jcard">
+            <div class="jyear">2025 — NOW</div>
+            <h3>Building GoVerifAI &amp; KaakaPOS</h3>
+            <p>AI-powered document fraud detection and a global POS payments platform — both in active development today.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="connect">
+  <div class="wrap reveal">
+    <div class="eyebrow">connect</div>
+    <h2 class="title">Reach out</h2>
+    <div class="connect-grid">
+      <a class="cbox" href="mailto:ayekarinfotech@aol.com"><div class="k">Email</div><div class="v">ayekarinfotech@aol.com</div></a>
+      <a class="cbox" href="tel:+917887970701"><div class="k">Phone</div><div class="v">+91 78879 70701</div></a>
+      <a class="cbox" href="https://www.linkedin.com/in/iamkaranthanage" target="_blank" rel="noopener"><div class="k">LinkedIn</div><div class="v">@iamkaranthanage</div></a>
+      <a class="cbox" href="https://github.com/ayekarinfotech" target="_blank" rel="noopener"><div class="k">GitHub</div><div class="v">ayekarinfotech</div></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img class="foot-logo" src="assets/logo.png" width="320" height="80" alt="Ayekar Infotech">
+    <p><span class="flag">&gt;_</span> Authorized testing only. Always operate within scope and the law. — built &amp; maintained by Karan D. Thanage</p>
+    <p class="copyline">© 2026 Karan Daulat Thanage / Ayekar Infotech Pvt Ltd. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var isCoarse = window.matchMedia('(pointer: coarse)').matches;
+
+  // Terminal typing effect for the name line
+  (function(){
+    var el = document.getElementById('typed-name');
+    var text = "Karan Daulat Thanage";
+    if(reduced){ el.textContent = text; return; }
+    var i = 0;
+    function tick(){
+      if(i <= text.length){
+        el.innerHTML = text.slice(0,i) + '<span class="cursor"></span>';
+        i++;
+        setTimeout(tick, 55);
+      } else {
+        el.innerHTML = text + '<span class="cursor"></span>';
+      }
+    }
+    tick();
+  })();
+
+  // Scroll reveal
+  (function(){
+    var items = document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)){
+      items.forEach(function(el){ el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.12});
+    items.forEach(function(el){ io.observe(el); });
+  })();
+
+  // Skill meter fill on scroll
+  (function(){
+    var cols = document.querySelectorAll('.arsenal-col');
+    if(!('IntersectionObserver' in window)){
+      cols.forEach(function(el){ el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.3});
+    cols.forEach(function(el){ io.observe(el); });
+  })();
+
+  // Journey timeline: 3D pop-in on scroll
+  (function(){
+    var items = document.querySelectorAll('.jitem');
+    if(!('IntersectionObserver' in window)){
+      items.forEach(function(el){ el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.25});
+    items.forEach(function(el){ io.observe(el); });
+  })();
+
+  // Impact counters count-up
+  (function(){
+    var nums = document.querySelectorAll('.impact-num');
+    function run(el){
+      var target = parseInt(el.getAttribute('data-count'), 10);
+      if(reduced){ el.textContent = target; return; }
+      var cur = 0, steps = 30, i = 0;
+      var iv = setInterval(function(){
+        i++;
+        cur = Math.round((target/steps) * i);
+        el.textContent = Math.min(cur, target);
+        if(i >= steps){ clearInterval(iv); el.textContent = target; }
+      }, 35);
+    }
+    if(!('IntersectionObserver' in window)){
+      nums.forEach(run);
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){ run(entry.target); io.unobserve(entry.target); }
+      });
+    }, {threshold:0.5});
+    nums.forEach(function(el){ io.observe(el); });
+  })();
+
+  // 3D tilt: portrait card + venture cards
+  (function(){
+    if(reduced || isCoarse) return;
+    function bindTilt(el, strength){
+      var rect;
+      el.addEventListener('mouseenter', function(){ rect = el.getBoundingClientRect(); });
+      el.addEventListener('mousemove', function(e){
+        if(!rect) rect = el.getBoundingClientRect();
+        var px = (e.clientX - rect.left) / rect.width;
+        var py = (e.clientY - rect.top) / rect.height;
+        var rx = (py - 0.5) * -strength;
+        var ry = (px - 0.5) * strength;
+        el.style.transform = 'rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+      });
+      el.addEventListener('mouseleave', function(){
+        el.style.transform = 'rotateX(0deg) rotateY(0deg)';
+      });
+    }
+    var portrait = document.getElementById('portraitCard');
+    if(portrait) bindTilt(portrait, 16);
+    document.querySelectorAll('.tilt .vcard').forEach(function(el){ bindTilt(el, 7); });
+  })();
+
+  // Global cursor spotlight
+  (function(){
+    if(reduced || isCoarse) return;
+    var root = document.documentElement;
+    window.addEventListener('mousemove', function(e){
+      root.style.setProperty('--mx', e.clientX + 'px');
+      root.style.setProperty('--my', e.clientY + 'px');
+    }, {passive:true});
+  })();
+
+  // Ambient particle network background
+  (function(){
+    var canvas = document.getElementById('netbg');
+    if(!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var W, H, particles = [];
+    var COUNT = reduced ? 0 : (isCoarse ? 26 : 55);
+
+    function resize(){
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function rand(a,b){ return a + Math.random()*(b-a); }
+    for(var i=0;i<COUNT;i++){
+      particles.push({
+        x: rand(0,W), y: rand(0,H),
+        vx: rand(-0.18,0.18), vy: rand(-0.18,0.18),
+        r: rand(1,2.2)
+      });
+    }
+
+    function step(){
+      if(COUNT === 0) return;
+      ctx.clearRect(0,0,W,H);
+      for(var i=0;i<particles.length;i++){
+        var p = particles[i];
+        p.x += p.vx; p.y += p.vy;
+        if(p.x < 0 || p.x > W) p.vx *= -1;
+        if(p.y < 0 || p.y > H) p.vy *= -1;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(47,209,196,0.55)';
+        ctx.fill();
+      }
+      for(var i=0;i<particles.length;i++){
+        for(var j=i+1;j<particles.length;j++){
+          var a = particles[i], b = particles[j];
+          var dx = a.x-b.x, dy = a.y-b.y;
+          var dist = Math.sqrt(dx*dx+dy*dy);
+          if(dist < 130){
+            ctx.strokeStyle = 'rgba(62,123,250,' + (0.16 * (1 - dist/130)) + ')';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(a.x,a.y);
+            ctx.lineTo(b.x,b.y);
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  })();
+</script>
+
+</body>
+</html>
